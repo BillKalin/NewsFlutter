@@ -10,7 +10,7 @@ import 'package:news_fluttter/GestureDemo.dart';
 import 'package:news_fluttter/GridViewDemo.dart';
 import 'package:news_fluttter/HeroAnim.dart';
 import 'package:news_fluttter/InheritedWidgetDemo.dart';
-import 'package:news_fluttter/JsomDemo.dart';
+import 'package:news_fluttter/JsonDemo.dart';
 import 'package:news_fluttter/LayoutDemo.dart';
 import 'package:news_fluttter/ListViewDemo.dart';
 import 'package:news_fluttter/Login.dart';

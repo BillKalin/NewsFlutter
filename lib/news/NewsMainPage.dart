@@ -1,7 +1,9 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
+import 'package:news_fluttter/news/model/BaseReponse.dart';
+import 'package:news_fluttter/news/model/Category.dart';
+import 'package:news_fluttter/news/model/SubCategory.dart';
+import 'package:news_fluttter/news/network/NetUtils.dart';
 
 class NewsMainPage extends StatefulWidget {
   @override
@@ -35,81 +37,45 @@ class NewsPageListState extends State<NewsPageList> {
 
   @override
   void initState() {
-
-    Future<Response<String>> data = Dio().get("http://gank.io/api/xiandu/categories");
-    data.then((Response<String> response){
-      return response.data.toString();
-    }).then((data){
+    Future data = NetUtils.get("http://gank.io/api/xiandu/categories");
+    data.then((dynamic response) {
+//      var error = response['error'];
+//      var results = response['results'];
+      var baseResponse = BaseResponse.fromJson(response);
+      return Category.parseJson(baseResponse.results);
+    }).then((data) {
       setState(() {
-        ResponseData response = ResponseData.fromJson(json.decode(data));
-        if (!response.error) {
-          _list = response.results;
-        }
+        _list = data;
       });
     });
     super.initState();
   }
 
+  void _getSubCategory(String enName) {
+    Future subRes = NetUtils.get("http://gank.io/api/xiandu/category/$enName");
+    subRes.then((dynamic source) {
+      var baseResponse = BaseResponse.fromJson(source);
+      return SubCategory.parseJson(baseResponse.results);
+    }).then((data) {
+      print("data = $data");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        Category category = _list[index];
-        return ListTile(
-          title: Text(category.name),
-        );
-      },
-      itemCount: _list.length,
-    );
+    return _list.isEmpty
+        ? Center(child: CircularProgressIndicator())
+        : ListView.builder(
+            itemBuilder: (BuildContext context, int index) {
+              Category category = _list[index];
+              return ListTile(
+                title: Text(category.name),
+                onTap: () {
+                  _getSubCategory(category.enName);
+                },
+              );
+            },
+            itemCount: _list.length,
+          );
   }
 }
-
-class ResponseData {
-  final bool error;
-  final List<Category> results;
-
-  ResponseData({this.error, this.results});
-
-  factory ResponseData.fromJson(Map<String, dynamic> json) {
-    var list = json['results'] as List;
-    return ResponseData(
-        error: json['error'],
-        results: list.map((i) => Category.fromJson(i)).toList());
-  }
-}
-
-class Category {
-  final String id;
-  final String enName;
-  final String name;
-  final int rank;
-
-  Category({this.id, this.enName, this.name, this.rank});
-
-  factory Category.fromJson(Map<String, dynamic> json) {
-    return Category(
-        id: json['id'],
-        enName: json['en_name'],
-        name: json['name'],
-        rank: json['rank']);
-  }
-}
-
-/*
-{
-"error": false,
-"results": [
-{
-"_id": "57c83777421aa97cbd81c74d",
-"en_name": "wow",
-"name": "科技资讯",
-"rank": 1
-},
-{
-"_id": "57c83577421aa97cb162d8b1",
-"en_name": "apps",
-"name": "趣味软件/游戏",
-"rank": 5
-}
-]
-}*/
