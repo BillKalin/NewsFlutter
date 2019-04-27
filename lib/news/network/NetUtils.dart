@@ -1,7 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:news_fluttter/news/constants/Api.dart';
 
 class NetUtils {
-  static final Dio dio = new Dio();
+  static final int TIME_OUT = Duration(seconds: 15).inMilliseconds;
+
+  static final Dio dio = new Dio(BaseOptions(
+      baseUrl: Api.BASE_HOST,
+      connectTimeout: TIME_OUT,
+      receiveTimeout: TIME_OUT));
 
   static Future get(
     String path, {
