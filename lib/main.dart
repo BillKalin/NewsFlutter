@@ -58,6 +58,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+     const Map<TargetPlatform, PageTransitionsBuilder> _defaultBuilders = <TargetPlatform, PageTransitionsBuilder>{
+      TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+      TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+    };
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -71,6 +75,7 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
+        pageTransitionsTheme: PageTransitionsTheme(builders: _defaultBuilders)
       ),
       home: MyHomePage(title: 'News'),
       routes: {
@@ -457,4 +462,19 @@ class MyPageRoute extends PageRoute {
       child: builder(context),
     );
   }
+}
+
+
+class MyPageRouteBuilder extends PageTransitionsBuilder {
+
+  const MyPageRouteBuilder();
+
+  @override
+  Widget buildTransitions<T>(PageRoute<T> route, BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+    return FadeTransition(
+      opacity: animation,
+      child: child,
+    );
+  }
+
 }

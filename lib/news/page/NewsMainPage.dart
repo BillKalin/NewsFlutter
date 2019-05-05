@@ -76,7 +76,7 @@ class _NewMainState extends State<NewsMainPage>
         (_list.isEmpty)
             ? null
             : Container(
-                color: Colors.blue,
+                color: Theme.of(context).primaryColor,
                 child: Row(children: [
                   Expanded(
                       child: TabBar(

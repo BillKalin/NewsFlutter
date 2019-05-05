@@ -61,7 +61,7 @@ class _SearchState extends State<NewsSearchPage> {
           children: <Widget>[
             Container(
               padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-              color: Colors.blue,
+              color: Theme.of(context).primaryColor,
               child: Row(
                 children: <Widget>[
                   Expanded(
