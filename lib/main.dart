@@ -22,8 +22,7 @@ import 'package:news_fluttter/ScaffoldDemo.dart';
 import 'package:news_fluttter/ScrollWidgetDemo.dart';
 import 'package:news_fluttter/ThemeDemo.dart';
 import 'package:news_fluttter/WillPopScopeDemo.dart';
-import 'package:news_fluttter/news/Home.dart';
-import 'package:news_fluttter/news/NewsMainPage.dart';
+import 'package:news_fluttter/news/page/HomePage.dart';
 import 'RandomWordPage.dart';
 import 'TapBoxA.dart';
 import 'TapboxB.dart';
@@ -140,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: RaisedButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Home();
+                  return HomePage();
                 }));
               },
               child: Text("Demo App"),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_fluttter/news/NewsCategoryListPage.dart';
+import 'package:news_fluttter/news/page/NewsCategoryListPage.dart';
 import 'package:news_fluttter/news/constants/Api.dart';
 import 'package:news_fluttter/news/model/BaseReponse.dart';
 import 'package:news_fluttter/news/model/Category.dart';
@@ -70,24 +70,31 @@ class _NewMainState extends State<NewsMainPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-//        title: Text("今日干货"),
-        bottom: (_list.isEmpty)
+    return SafeArea(
+        child: Column(
+      children: <Widget>[
+        (_list.isEmpty)
             ? null
-            : TabBar(
-                isScrollable: true,
-                tabs: _list.map((index) {
-                  return Tab(
-                    text: index.name,
-                  );
-                }).toList(),
-                controller: _controller,
+            : Container(
+                color: Colors.blue,
+                child: Row(children: [
+                  Expanded(
+                      child: TabBar(
+                    indicatorColor: Colors.white,
+                    isScrollable: true,
+                    tabs: _list.map((index) {
+                      return Tab(
+                        text: index.name,
+                      );
+                    }).toList(),
+                    controller: _controller,
+                  )),
+                ]),
               ),
-      ),
-      body: Container(
-        child: _getBodyWidget(_currIndex),
-      ),
-    );
+        Expanded(
+          child: _getBodyWidget(_currIndex),
+        ),
+      ],
+    ));
   }
 }

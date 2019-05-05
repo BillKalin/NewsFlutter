@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_fluttter/news/NewsDetailPage.dart';
+import 'package:news_fluttter/news/page/NewsDetailPage.dart';
 import 'package:news_fluttter/news/constants/Api.dart';
 import 'package:news_fluttter/news/model/BaseReponse.dart';
 import 'package:news_fluttter/news/model/NewsDetail.dart';

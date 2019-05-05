@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:news_fluttter/news/NewsMainPage.dart';
+import 'package:news_fluttter/news/page/NewsMainPage.dart';
+import 'package:news_fluttter/news/page/NewsSearchPage.dart';
 
-class Home extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _HomeState();
+  State<StatefulWidget> createState() => _HomePageState();
 }
 
-class _HomeState extends State<Home> {
+class _HomePageState extends State<HomePage> {
   static const List<BottomNavigationBarItem> _bottomList = [
     BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
     BottomNavigationBarItem(
@@ -15,10 +16,7 @@ class _HomeState extends State<Home> {
   ];
 
   static final List<Widget> _pageList = [
-    Container(
-      alignment: Alignment.center,
-      child: Text("Home"),
-    ),
+    NewsSearchPage(),
     NewsMainPage(),
     Container(
       alignment: Alignment.center,
@@ -47,8 +45,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-      IndexedStack(
+      body: IndexedStack(
         children: _pageList,
         index: _currIndex,
       ),
