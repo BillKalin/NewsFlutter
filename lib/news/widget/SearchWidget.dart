@@ -4,8 +4,14 @@ class SearchWidget extends StatelessWidget {
   final String hindText;
   final ValueChanged<String> onSubmitted;
   final VoidCallback onTap;
+  final bool enable;
 
-  SearchWidget({Key key, this.hindText, this.onTap, this.onSubmitted})
+  SearchWidget(
+      {Key key,
+      this.enable = true,
+      this.hindText,
+      this.onTap,
+      this.onSubmitted})
       : super(key: key);
 
   @override
@@ -17,6 +23,7 @@ class SearchWidget extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(24)),
       child: TextField(
+        enabled: enable,
         onTap: onTap,
         onSubmitted: onSubmitted,
         cursorColor: Colors.blue,

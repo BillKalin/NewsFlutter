@@ -27,4 +27,9 @@ class SubCategory {
       'title': title
     };
   }
+
+  @override
+  String toString() {
+    return 'SubCategory{_id: $_id, created_at: $created_at, icon: $icon, id: $id, title: $title}';
+  }
 }

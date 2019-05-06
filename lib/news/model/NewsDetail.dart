@@ -31,4 +31,11 @@ class NewsDetail {
       return NewsDetail.fromJson(j);
     }).toList();
   }
+
+  @override
+  String toString() {
+    return 'NewsDetail{id: $id, content: $content, cover: $cover, url: $url, title: $title}';
+  }
+
+
 }

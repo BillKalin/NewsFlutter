@@ -24,12 +24,17 @@ class SearchItem {
         readability: json['readability'],
         type: json['type'],
         url: json['url'],
-        who: json['who']);
+        who: json['who'] != null ? json['who'] : "");
   }
 
   static List<SearchItem> parseJson(List list) {
     return list.map((i) {
       return SearchItem.fromJson(i);
     }).toList();
+  }
+
+  @override
+  String toString() {
+    return 'SearchItem{desc: $desc, ganhuId: $ganhuId, publishedAt: $publishedAt, readability: $readability, type: $type, url: $url, who: $who}';
   }
 }

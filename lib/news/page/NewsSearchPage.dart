@@ -12,20 +12,39 @@ class NewsSearchPage extends StatefulWidget {
 }
 
 class _SearchState extends State<NewsSearchPage> {
+  static final _LOADING_ITEM = SearchItem(type: "loading");
+  static final _NO_MORE_ITEM = SearchItem(type: "no_more");
+
   int _page = 1;
   List<SearchItem> _list = [];
-  int groupValue = 1;
+  ScrollController _scrollController;
+  String keyword = "";
 
   @override
   void initState() {
     super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      if (_scrollController.offset >=
+          _scrollController.position.maxScrollExtent) {
+        //到达底部，加载更多
+        _page += 1;
+        fetchSearchResult(keyword, _page);
+      }
+    });
   }
 
-  void fetchSearchResult(String keyword) {
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void fetchSearchResult(String keyword, int page) {
     String path = Api.NEWS_SEARCH_URL
         .replaceAll("%1s", keyword)
-        .replaceAll("%2s", "Android")
-        .replaceAll("%3s", _page.toString());
+        .replaceAll("%2s", "all")
+        .replaceAll("%3s", page.toString());
     print("path = $path");
 
     Future request = NetUtils.get(path);
@@ -38,7 +57,23 @@ class _SearchState extends State<NewsSearchPage> {
       }
     }).then((data) {
       setState(() {
-        _list = data;
+        print("data = $data");
+
+        if (_list.isNotEmpty) {
+          _list.removeLast();
+        }
+        if (page == 1) {
+          _list = data;
+        } else {
+          if (data.isNotEmpty) {
+            _list.addAll(data);
+          }
+        }
+        if (data.isEmpty) {
+          _list.add(_NO_MORE_ITEM);
+        } else {
+          _list.add(_LOADING_ITEM);
+        }
       });
     });
   }
@@ -55,85 +90,71 @@ class _SearchState extends State<NewsSearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-              color: Theme.of(context).primaryColor,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                      child: SearchWidget(
-                    hindText: "input text",
-                    onTap: () {},
-                    onSubmitted: (String text) {
-                      fetchSearchResult(text);
-                    },
-                  )),
-                ],
-              ),
-            ),
-//            Column(
-//              children: <Widget>[
-//                Wrap(
-//                  spacing: 8,
-//                  runSpacing: 4,
-//                  children: <Widget>[
-//                    InputChip(
-//                      label: Text("A" * 2),
-//                      selected: true,
-//                      avatar: CircleAvatar(
-//                        backgroundColor: Colors.blue,
-//                        child: Text("A"),
-//                      ),
-//                    ),
-//                    InputChip(
-//                      label: Text("B" * 8),
-//                      avatar: CircleAvatar(
-//                        backgroundColor: Colors.blue,
-//                        child: Text("B"),
-//                      ),
-//                    ),
-//                    InputChip(
-//                      label: Text("C" * 10),
-//                      avatar: CircleAvatar(
-//                        backgroundColor: Colors.blue,
-//                        child: Text("C"),
-//                      ),
-//                    ),
-//                    InputChip(
-//                      label: Text("D" * 2),
-//                      avatar: CircleAvatar(
-//                        backgroundColor: Colors.blue,
-//                        child: Text("D"),
-//                      ),
-//                    )
-//                  ],
-//                ),
-//              ],
-//            ),
-            Expanded(
-              child: ListView.separated(
-                  itemBuilder: (BuildContext context, int index) {
-                    var item = _list[index];
-                    return ListTile(
-                      title: Text(item.desc),
-                      subtitle: Text(item.who),
-                      onTap: () {
-                        _handleClickItem(item);
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding:
+                    EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                color: Theme.of(context).primaryColor,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                        child: SearchWidget(
+                      hindText: "input search keywords",
+                      onTap: () {},
+                      onSubmitted: (String text) {
+                        _page = 1;
+                        keyword = text;
+                        fetchSearchResult(text, _page);
                       },
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const Divider(
-                      height: 1,
-                    );
-                  },
-                  itemCount: _list.length),
-            ),
-          ],
+                    )),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: ListView.separated(
+                    controller: _scrollController,
+                    itemBuilder: (BuildContext context, int index) {
+                      var item = _list[index];
+                      if (index == _list.length - 1) {
+                        Widget lastChild;
+                        if (_NO_MORE_ITEM == _list[index]) {
+                          lastChild = Text("没有更多了～");
+                        } else if (_LOADING_ITEM == _list[index]) {
+                          lastChild = SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 3,
+                            ),
+                          );
+                        }
+                        return Container(
+                          padding: const EdgeInsets.all(16),
+                          alignment: Alignment.center,
+                          child: lastChild,
+                        );
+                      }
+                      return ListTile(
+                        title: Text(item.desc),
+                        subtitle: Text(item.who),
+                        onTap: () {
+                          _handleClickItem(item);
+                        },
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return const Divider(
+                        height: 1,
+                      );
+                    },
+                    itemCount: _list.length),
+              ),
+            ],
+          ),
         ),
       ),
     );

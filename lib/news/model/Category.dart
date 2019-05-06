@@ -23,4 +23,11 @@ class Category {
       return Category.fromJson(j);
     }).toList();
   }
+
+  @override
+  String toString() {
+    return 'Category{id: $id, enName: $enName, name: $name, rank: $rank}';
+  }
+
+
 }

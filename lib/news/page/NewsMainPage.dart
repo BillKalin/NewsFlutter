@@ -74,7 +74,9 @@ class _NewMainState extends State<NewsMainPage>
         child: Column(
       children: <Widget>[
         (_list.isEmpty)
-            ? null
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
             : Container(
                 color: Theme.of(context).primaryColor,
                 child: Row(children: [

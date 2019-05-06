@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news_fluttter/news/page/NewsHomePage.dart';
 import 'package:news_fluttter/news/page/NewsMainPage.dart';
-import 'package:news_fluttter/news/page/NewsSearchPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   static final List<Widget> _pageList = [
-    NewsSearchPage(),
+    NewsHomePage(),
     NewsMainPage(),
     Container(
       alignment: Alignment.center,
