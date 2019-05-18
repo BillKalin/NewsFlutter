@@ -22,7 +22,7 @@ import 'package:news_fluttter/ScaffoldDemo.dart';
 import 'package:news_fluttter/ScrollWidgetDemo.dart';
 import 'package:news_fluttter/ThemeDemo.dart';
 import 'package:news_fluttter/WillPopScopeDemo.dart';
-import 'package:news_fluttter/news/page/HomePage.dart';
+import 'package:news_fluttter/news/page/home_page.dart';
 import 'RandomWordPage.dart';
 import 'TapBoxA.dart';
 import 'TapboxB.dart';

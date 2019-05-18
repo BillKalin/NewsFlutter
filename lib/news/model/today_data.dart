@@ -1,4 +1,4 @@
-import 'package:news_fluttter/news/model/TodayItem.dart';
+import 'package:news_fluttter/news/model/today_item.dart';
 
 class TodayData {
   final bool error;

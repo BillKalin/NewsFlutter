@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_fluttter/news/page/NewsHomePage.dart';
-import 'package:news_fluttter/news/page/NewsMainPage.dart';
+import 'package:news_fluttter/news/page/news_home_page.dart';
+import 'package:news_fluttter/news/page/news_main_page.dart';
 
 class HomePage extends StatefulWidget {
   @override

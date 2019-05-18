@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:news_fluttter/news/page/NewsListPage.dart';
 import 'package:news_fluttter/news/constants/Api.dart';
-import 'package:news_fluttter/news/model/BaseReponse.dart';
-import 'package:news_fluttter/news/model/SubCategory.dart';
-import 'package:news_fluttter/news/network/NetUtils.dart';
+import 'package:news_fluttter/news/model/base_reponse.dart';
+import 'package:news_fluttter/news/model/sub_category.dart';
+import 'package:news_fluttter/news/network/net_utils.dart';
+import 'package:news_fluttter/news/page/news_list_page.dart';
 
 class NewsCategoryListPage extends StatefulWidget {
   final String enName;

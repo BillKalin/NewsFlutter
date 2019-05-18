@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:news_fluttter/news/page/NewsDetailPage.dart';
 import 'package:news_fluttter/news/constants/Api.dart';
-import 'package:news_fluttter/news/model/BaseReponse.dart';
-import 'package:news_fluttter/news/model/NewsDetail.dart';
-import 'package:news_fluttter/news/network/NetUtils.dart';
+import 'package:news_fluttter/news/model/base_reponse.dart';
+import 'package:news_fluttter/news/model/news_detail.dart';
+import 'package:news_fluttter/news/network/net_utils.dart';
+import 'package:news_fluttter/news/page/web_view_page.dart';
 
 class NewsListPage extends StatefulWidget {
   final String title;

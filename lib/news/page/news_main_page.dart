@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:news_fluttter/news/page/NewsCategoryListPage.dart';
 import 'package:news_fluttter/news/constants/Api.dart';
-import 'package:news_fluttter/news/model/BaseReponse.dart';
 import 'package:news_fluttter/news/model/Category.dart';
-import 'package:news_fluttter/news/network/NetUtils.dart';
+import 'package:news_fluttter/news/model/base_reponse.dart';
+import 'package:news_fluttter/news/network/net_utils.dart';
+import 'package:news_fluttter/news/page/news_category_list_page.dart';
 
 class NewsMainPage extends StatefulWidget {
   @override
