@@ -50,7 +50,9 @@ class _NewMainState extends State<NewsMainPage>
 
   @override
   void dispose() {
-    _controller.dispose();
+    if (_controller != null) {
+      _controller.dispose();
+    }
     super.dispose();
   }
 

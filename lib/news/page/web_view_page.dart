@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class NewsDetailPage extends StatefulWidget {
   final String title;
@@ -12,16 +12,33 @@ class NewsDetailPage extends StatefulWidget {
 }
 
 class _NewsDetailState extends State<NewsDetailPage> {
+  WebViewController _webViewController;
+
   @override
   Widget build(BuildContext context) {
-    return WebviewScaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      url: widget.url,
-      initialChild: Center(
-        child: CircularProgressIndicator(),
-      ),
+      body: WillPopScope(
+          child: WebView(
+              onWebViewCreated: (controller) {
+                _webViewController = controller;
+              },
+              initialUrl: widget.url,
+              javascriptMode: JavascriptMode.unrestricted),
+          onWillPop: () {
+            _goBack();
+          }),
     );
+  }
+
+  void _goBack() async {
+    var canGoBack = await _webViewController.canGoBack();
+    if (canGoBack) {
+      _webViewController.goBack();
+    } else {
+      Navigator.of(context).pop();
+    }
   }
 }
