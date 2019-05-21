@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:news_fluttter/AnimationDemo.dart';
 import 'package:news_fluttter/ComplexAnimation.dart';
 import 'package:news_fluttter/ContainersDemo.dart';
@@ -44,6 +45,7 @@ void main() {
 //    reportErrorAndLog(details);
 //  };
 //  runZoned(() {
+//  debugPaintSizeEnabled = true;
   runApp(MyApp());
 //  }, zoneSpecification: new ZoneSpecification(
 //      print: (Zone self, ZoneDelegate parent, Zone zone, String line) {

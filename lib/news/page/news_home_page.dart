@@ -6,6 +6,7 @@ import 'package:news_fluttter/news/network/net_utils.dart';
 import 'package:news_fluttter/news/page/news_search_page.dart';
 import 'package:news_fluttter/news/page/web_view_page.dart';
 import 'package:news_fluttter/news/widget/SearchWidget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class NewsHomePage extends StatefulWidget {
   @override
@@ -84,41 +85,70 @@ class _NewsHomePageState extends State<NewsHomePage> {
 //                          VideoPlayerController.network(item.url));
                         } else if (item.images != null &&
                             item.images.isNotEmpty) {
-                          var width;
                           var imageChildren = List<Widget>();
                           if (item.images.length > 1) {
                             if (item.images.length < 3) {
-                              width = (MediaQuery.of(context).size.width - 32);
                               imageChildren = [
-                                Container(
-                                  margin: EdgeInsets.only(top: 12),
-                                  child: ClipRRect(
-                                    child: Image.network(
-                                      item.images[0],
-                                      width: width,
-                                      fit: BoxFit.cover,
-                                      height: 100,
+                                Expanded(
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 12),
+                                    child: ClipRRect(
+                                      child: CachedNetworkImage(
+                                          imageUrl: item.images[0],
+                                          fit: BoxFit.cover,
+                                          height: 100,
+                                          placeholder: (BuildContext context,
+                                              String url) {
+                                            return Container(
+                                                height: 100,
+                                                child: Center(
+                                                  child: SizedBox(
+                                                    child:
+                                                        CircularProgressIndicator(strokeWidth: 2,),
+                                                    width: 30,
+                                                    height: 30,
+                                                  ),
+                                                ));
+                                          },
+                                          errorWidget: (BuildContext context,
+                                              String url, Object error) {
+                                            return Icon(Icons.error);
+                                          }),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                )
+                                ),
                               ];
                             } else {
-                              width = (MediaQuery.of(context).size.width - 32) /
-                                  item.images.length;
                               imageChildren = item.images.map((url) {
-                                return Container(
+                                return Expanded(
+                                    child: Container(
                                   margin: EdgeInsets.only(top: 12),
                                   child: ClipRRect(
-                                    child: Image.network(
-                                      url,
-                                      width: width,
-                                      fit: BoxFit.contain,
-                                      height: 100,
-                                    ),
+                                    child: CachedNetworkImage(
+                                        imageUrl: url,
+                                        fit: BoxFit.contain,
+                                        height: 100,
+                                        placeholder:
+                                            (BuildContext context, String url) {
+                                          return Container(
+                                              height: 100,
+                                              child: Center(
+                                                child: SizedBox(
+                                                  child:
+                                                      CircularProgressIndicator(strokeWidth: 2,),
+                                                  width: 30,
+                                                  height: 30,
+                                                ),
+                                              ));
+                                        },
+                                        errorWidget: (BuildContext context,
+                                            String url, Object error) {
+                                          return Icon(Icons.error);
+                                        }),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                );
+                                ));
                               }).toList();
                             }
                             return InkWell(
@@ -195,11 +225,32 @@ class _NewsHomePageState extends State<NewsHomePage> {
                                     Wrap(
                                       children: <Widget>[
                                         ClipRRect(
-                                          child: Image.network(
-                                            item.images[0],
-                                            width: 50,
-                                            height: 50,
-                                          ),
+                                          child: CachedNetworkImage(
+                                              imageUrl: item.images[0],
+                                              fit: BoxFit.contain,
+                                              height: 50,
+                                              width: 50,
+                                              placeholder:
+                                                  (BuildContext context,
+                                                      String url) {
+                                                return Container(
+                                                    width: 50,
+                                                    height: 50,
+                                                    child: Center(
+                                                      child: SizedBox(
+                                                        child:
+                                                            CircularProgressIndicator(strokeWidth: 2,),
+                                                        width: 20,
+                                                        height: 20,
+                                                      ),
+                                                    ));
+                                              },
+                                              errorWidget:
+                                                  (BuildContext context,
+                                                      String url,
+                                                      Object error) {
+                                                return Icon(Icons.error);
+                                              }),
                                           borderRadius:
                                               BorderRadius.circular(8),
                                         )
