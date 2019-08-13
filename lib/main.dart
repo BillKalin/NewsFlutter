@@ -28,6 +28,7 @@ import 'RandomWordPage.dart';
 import 'TapBoxA.dart';
 import 'TapboxB.dart';
 import 'TapBoxC.dart';
+import 'news/page/video_page.dart';
 
 void reportErrorAndLog(FlutterErrorDetails details) {
   print(details);
@@ -411,6 +412,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 }));
               },
               child: Text("Method Channel"),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 16, right: 16),
+            child: RaisedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return VideoPage();
+                }));
+              },
+              child: Text("Video Player"),
             ),
           ),
         ],

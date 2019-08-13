@@ -33,6 +33,7 @@ dependencies:
   webview_flutter: ^0.3.5+3
   video_player: ^0.10.0+8
   cached_network_image: ^0.8.0
+  connectivity: 0.4.3+2
 
 dev_dependencies:
   flutter_test:
