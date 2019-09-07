@@ -7,6 +7,7 @@ import 'package:news_fluttter/news/page/news_search_page.dart';
 import 'package:news_fluttter/news/page/web_view_page.dart';
 import 'package:news_fluttter/news/widget/SearchWidget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:async/async.dart';
 
 class NewsHomePage extends StatefulWidget {
   @override
@@ -15,11 +16,12 @@ class NewsHomePage extends StatefulWidget {
 
 class _NewsHomePageState extends State<NewsHomePage> {
   List<TodayItem> _list = [];
+  CancelableOperation task;
 
   @override
   void initState() {
     super.initState();
-    _fetchTodayData();
+    task = CancelableOperation.fromFuture(_fetchTodayData());
   }
 
   Future<void> _fetchTodayData() async {
@@ -29,12 +31,21 @@ class _NewsHomePageState extends State<NewsHomePage> {
 //        .then((data) {
     print("size = ${data.results.length} & data = $data ");
     setState(() {
+      if (!mounted) {
+        return;
+      }
       if (data.error || data.results.isEmpty) {
         _list = [];
       } else {
         _list = data.results;
       }
     });
+  }
+
+  @override
+  void dispose() {
+    task.cancel();
+    super.dispose();
   }
 
   void _handleItemClick(TodayItem item) {
@@ -104,7 +115,9 @@ class _NewsHomePageState extends State<NewsHomePage> {
                                                 child: Center(
                                                   child: SizedBox(
                                                     child:
-                                                        CircularProgressIndicator(strokeWidth: 2,),
+                                                        CircularProgressIndicator(
+                                                      strokeWidth: 2,
+                                                    ),
                                                     width: 30,
                                                     height: 30,
                                                   ),
@@ -136,7 +149,9 @@ class _NewsHomePageState extends State<NewsHomePage> {
                                               child: Center(
                                                 child: SizedBox(
                                                   child:
-                                                      CircularProgressIndicator(strokeWidth: 2,),
+                                                      CircularProgressIndicator(
+                                                    strokeWidth: 2,
+                                                  ),
                                                   width: 30,
                                                   height: 30,
                                                 ),
@@ -239,7 +254,9 @@ class _NewsHomePageState extends State<NewsHomePage> {
                                                     child: Center(
                                                       child: SizedBox(
                                                         child:
-                                                            CircularProgressIndicator(strokeWidth: 2,),
+                                                            CircularProgressIndicator(
+                                                          strokeWidth: 2,
+                                                        ),
                                                         width: 20,
                                                         height: 20,
                                                       ),

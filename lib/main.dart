@@ -28,6 +28,7 @@ import 'RandomWordPage.dart';
 import 'TapBoxA.dart';
 import 'TapboxB.dart';
 import 'TapBoxC.dart';
+import 'news/page/screen_page.dart';
 import 'news/page/video_page.dart';
 
 void reportErrorAndLog(FlutterErrorDetails details) {
@@ -147,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: RaisedButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return HomePage();
+                  return ScreenPage();
                 }));
               },
               child: Text("Demo App"),
