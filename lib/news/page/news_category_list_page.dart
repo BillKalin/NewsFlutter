@@ -30,6 +30,7 @@ class _NewsCategoryListPageState extends State<NewsCategoryListPage> {
       return SubCategory.parseJson(baseResponse.results);
     }).then((data) {
       print("data = $data");
+      if (!mounted) return;
       setState(() {
         _list = data;
       });

@@ -34,6 +34,8 @@ class _NewMainState extends State<NewsMainPage>
     }).then((ret) {
       if (ret is bool) {
       } else if (ret is List) {
+        if(!mounted)
+          return;
         setState(() {
           _list = ret;
           _controller = TabController(length: _list.length, vsync: this);
