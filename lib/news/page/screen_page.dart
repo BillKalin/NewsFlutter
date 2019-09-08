@@ -15,13 +15,6 @@ class _ScreenPageState extends State<ScreenPage>
 
   @override
   void initState() {
-//    new Timer(Duration(seconds: 5), () {
-//      // ignore: missing_return
-//      Navigator.of(context)
-//          .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
-//        return HomePage();
-//      }));
-//    });
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 5),
