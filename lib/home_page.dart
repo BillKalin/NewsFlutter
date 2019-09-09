@@ -14,9 +14,8 @@ import 'ThemeDemo.dart';
 import 'news/page/video_page.dart';
 
 class MainHomePage extends StatefulWidget {
-  final String title;
 
-  MainHomePage({Key key, this.title}) : super(key: key);
+  MainHomePage({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MainHomePageState();
@@ -29,7 +28,7 @@ class _MainHomePageState extends State<MainHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(DemoLocalizations.of(context).news_title),
+        title: Text(NewsLocalizations.of(context).news_title),
       ),
       body: ListView(
         shrinkWrap: true,

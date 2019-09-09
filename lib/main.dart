@@ -74,20 +74,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      onGenerateTitle: (context) => DemoLocalizations.of(context).title,
+      onGenerateTitle: (context) => NewsLocalizations.of(context).title,
       theme: ThemeData(
           primarySwatch: Colors.blue,
           pageTransitionsTheme:
               PageTransitionsTheme(builders: _defaultBuilders)),
-      home: MainHomePage(title: "News"),
+      home: MainHomePage(),
 //      routes: Routes.routesMap,
       onGenerateRoute: Routes.routes,
       localizationsDelegates: [
-        const DemoLocalizationsDelegate(),
+        const NewsLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales: DemoLocalizationsDelegate.supportLocale,
+      supportedLocales: NewsLocalizationsDelegate.supportLocale,
     );
   }
 }

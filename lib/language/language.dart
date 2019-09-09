@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 class Language {}
 
-class DemoLocalizations {
+class NewsLocalizations {
   final Locale locale;
 
-  DemoLocalizations(this.locale);
+  NewsLocalizations(this.locale);
 
-  static DemoLocalizations of(BuildContext context) {
-    var lo =  Localizations.of<DemoLocalizations>(context, DemoLocalizations);
+  static NewsLocalizations of(BuildContext context) {
+    var lo =  Localizations.of<NewsLocalizations>(context, NewsLocalizations);
     print("${(lo == null).toString()} is null !!!");
     return lo;
   }
@@ -30,9 +30,9 @@ class DemoLocalizations {
   String get news_title => _localizedValues[locale.languageCode]['news'];
 }
 
-class DemoLocalizationsDelegate
-    extends LocalizationsDelegate<DemoLocalizations> {
-  const DemoLocalizationsDelegate();
+class NewsLocalizationsDelegate
+    extends LocalizationsDelegate<NewsLocalizations> {
+  const NewsLocalizationsDelegate();
 
   static const supportLocale = [
     const Locale('zh'), // Chinese
@@ -44,10 +44,10 @@ class DemoLocalizationsDelegate
       ['en','zh'].contains(locale.languageCode);
 
   @override
-  Future<DemoLocalizations> load(Locale locale) {
-    return SynchronousFuture<DemoLocalizations>(DemoLocalizations(locale));
+  Future<NewsLocalizations> load(Locale locale) {
+    return SynchronousFuture<NewsLocalizations>(NewsLocalizations(locale));
   }
 
   @override
-  bool shouldReload(LocalizationsDelegate<DemoLocalizations> old) => false;
+  bool shouldReload(LocalizationsDelegate<NewsLocalizations> old) => false;
 }
