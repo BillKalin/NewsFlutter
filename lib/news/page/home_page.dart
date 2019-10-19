@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:news_fluttter/news/page/news_home_page.dart';
 import 'package:news_fluttter/news/page/news_main_page.dart';
 
+import 'news_me_page.dart';
+
 class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _HomePageState();
@@ -18,10 +20,7 @@ class _HomePageState extends State<HomePage> {
   static final List<Widget> _pageList = [
     NewsHomePage(),
     NewsMainPage(),
-    Container(
-      alignment: Alignment.center,
-      child: Text("Me"),
-    ),
+    NewsMePage(),
   ];
 
   int _currIndex = 0;

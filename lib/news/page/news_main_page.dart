@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:news_fluttter/news/constants/Api.dart';
 import 'package:news_fluttter/news/model/Category.dart';
 import 'package:news_fluttter/news/model/base_reponse.dart';
@@ -34,8 +35,7 @@ class _NewMainState extends State<NewsMainPage>
     }).then((ret) {
       if (ret is bool) {
       } else if (ret is List) {
-        if(!mounted)
-          return;
+        if (!mounted) return;
         setState(() {
           _list = ret;
           _controller = TabController(length: _list.length, vsync: this);
@@ -74,33 +74,35 @@ class _NewMainState extends State<NewsMainPage>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Column(
-      children: <Widget>[
-        (_list.isEmpty)
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : Container(
-                color: Theme.of(context).primaryColor,
-                child: Row(children: [
-                  Expanded(
-                      child: TabBar(
-                    indicatorColor: Colors.white,
-                    isScrollable: true,
-                    tabs: _list.map((index) {
-                      return Tab(
-                        text: index.name,
-                      );
-                    }).toList(),
-                    controller: _controller,
-                  )),
-                ]),
-              ),
-        Expanded(
-          child: _getBodyWidget(_currIndex),
-        ),
-      ],
-    ));
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+        child: SafeArea(
+            child: Column(
+          children: <Widget>[
+            (_list.isEmpty)
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Container(
+                    color: Theme.of(context).primaryColor,
+                    child: Row(children: [
+                      Expanded(
+                          child: TabBar(
+                        indicatorColor: Colors.white,
+                        isScrollable: true,
+                        tabs: _list.map((index) {
+                          return Tab(
+                            text: index.name,
+                          );
+                        }).toList(),
+                        controller: _controller,
+                      )),
+                    ]),
+                  ),
+            Expanded(
+              child: _getBodyWidget(_currIndex),
+            ),
+          ],
+        )));
   }
 }
