@@ -130,12 +130,12 @@ class CountDownText extends AnimatedWidget {
   Widget build(BuildContext context) {
     var value = animation.value;
     return
-        /*Container(
+        Container(
       padding: EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
       margin: EdgeInsets.only(top: 12, right: 12),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(20)),
-      child:*/
+      child:
         Material(
       type: MaterialType.card,
       borderRadius: BorderRadius.circular(20),
@@ -156,6 +156,6 @@ class CountDownText extends AnimatedWidget {
                   decoration: TextDecoration.none),
             ),
           )),
-    );
+    ));
   }
 }

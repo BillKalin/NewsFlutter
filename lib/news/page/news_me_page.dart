@@ -1,5 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:news_fluttter/news/widget/clipper_circle.dart';
+import 'package:news_fluttter/provider/theme_model.dart';
+import 'package:provider/provider.dart';
 
 class NewsMePage extends StatefulWidget {
   @override
@@ -132,7 +136,10 @@ class _ThemeListWidget extends StatelessWidget {
               return Material(
                 color: color,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    var themeModel = Provider.of<ThemeModel>(context);
+                    themeModel.setThemeData(color: color);
+                  },
                   child: Container(
                     width: 40,
                     height: 40,
